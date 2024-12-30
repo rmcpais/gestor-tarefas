@@ -1,24 +1,35 @@
 #Classe Utilizador que guarda todas os métodos e informações do utilizador
+from pathlib import Path
+import os
+import hashlib
 class Utilizador():
     #inicializar a classe
-    def __init__(self, user, passwd):
-        self.__user = user
-        self.__passwd = passwd
-
-    #mudar a password
-    def change_passwd(self, oldpwd, newpwd):
-        if oldpwd == self.__passwd:
-            self.__passwd = newpwd
+    def __init__(self, uname, passwd, create = False):
+        self.__uname = uname
+        if create:
+            self.__salt = os.urandom(32) #criar um salt para a password
+            self.__passwd = self.hash_passwd(passwd)
+            with open(Path("users/users.txt"), "a") as file:
+                file.write(f"{self.__uname}:{self.__passwd.hex()} {self.__salt.hex()}\n") #guardar o novo utilizador no ficheiro
+        else:
+            #carregar os dados do ficehiro dos utilizadores
+            cred = passwd.split(" ")
+            self.__passwd = bytes.fromhex(cred[0])
+            self.__salt = bytes.fromhex(cred[1])
+            
+    #função para dar hash a uma password salted, para guardar/autenticar
+    def hash_passwd(self, passwd):
+        password = hashlib.pbkdf2_hmac('sha256', passwd.encode('utf-8'), self.__salt, 100000)
+        return password
     
-    def change_user(self, newusr):
-        self.__user = newusr
+    #função getter para o nome de utilizador
+    def get_uname(self):
+        return self.__uname
 
-    def get_user(self):
-        return self.__user
-
-    def auth(self, user, passwd):
-        if user == self.__user and passwd == self.__passwd:
+    #função de autenticação do utilizador
+    def auth(self, uname, passwd):
+        if uname == self.__uname and self.hash_passwd(passwd) == self.__passwd:
             return True
         else:
             return False
-    
+        
