@@ -1,39 +1,18 @@
-from datetime import datetime
-class Tarefa():
-    def __init__(self, titulo, desc, categ, status = "pendente", date = datetime.now().strftime('%Y-%m-%d')):
-        self.__titulo = titulo
-        self.__desc = desc
-        self.__status = status
-        self.__categ = categ
-        self.__date = date
-    
+import datetime
 
-    def change_status(self):
-        if self.__status == "pendente":
-            self.__status = "concluída"
-        else:
-            self.__status = "pendente"
+class Tarefa:
+    def __init__(self, titulo, descricao, categoria, status="Pendente", data = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")):
+        self.titulo = titulo
+        self.descricao = descricao
+        self.data_criacao = data
+        self.status = status
+        self.categoria = categoria
 
-    def get_date(self):
-        return self.__date
-    
-    def get_status(self):
-        return self.__status
+    def atualizar_status(self, novo_status):
+        self.status = novo_status
 
-    def get_titulo(self):
-        return self.__titulo
-    
-    def get_desc(self):
-        return self.__desc
-    
-    def get_categ(self):
-        return self.__categ
+    def alterar_categoria(self, nova_categoria):
+        self.categoria = nova_categoria
 
-    def set_categ(self, newcateg):
-        self.__categ = newcateg
-
-    def set_desc(self, newdesc):
-        self.__desc = newdesc
-
-    def set_titulo(self, newtitulo):
-        self.__titulo = newtitulo
+    def __str__(self):
+        return f"{self.titulo} | {self.categoria} | {self.status} | {self.data_criacao}\nDescrição: {self.descricao}\n"
