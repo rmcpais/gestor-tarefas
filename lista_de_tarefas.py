@@ -33,31 +33,16 @@ class ListaDeTarefas:
         self.guardar_lista()
 
     # Função para remover uma tarefa da lista
-    def remover_tarefa(self, titulo):
-        n = 0
-        for t in self.tarefas:
-            if t.titulo == titulo:
-                break
-            n = n + 1
-        if n != None:
-            self.tarefas.pop(n)
-            self.guardar_lista()
+    def remover_tarefa(self, x):
+        ret = self.tarefas.pop(x)
+        self.guardar_lista()
+        return ret
 
     # Função para guardar lista de tarefas no ficheiro
     def guardar_lista(self):
         with open(Path(f"tarefas/{self.__user}.txt"), "w") as file:
             for t in self.tarefas:
                 file.write(f"{t.titulo}/%/{t.descricao}/%/{t.categoria}/%/{t.status}/%/{t.data_criacao}\n")
-
-    # Função para mudar os atributos da tarefa
-    def atualizar_tarefa(self, titulo, novos_dados):
-        for tarefa in self.tarefas:
-            if tarefa.titulo == titulo:
-                tarefa.titulo = novos_dados.get("titulo", tarefa.titulo)
-                tarefa.descricao = novos_dados.get("descricao", tarefa.descricao)
-                tarefa.status = novos_dados.get("status", tarefa.status)
-                tarefa.categoria = novos_dados.get("categoria", tarefa.categoria)
-                self.guardar_lista()
 
     # Função para filtrar tarefas por status ou categoria
     def filtrar_tarefas(self, status=None, categoria = None):
@@ -73,8 +58,4 @@ class ListaDeTarefas:
             return tarefas_filtradas
         
         return self.tarefas
-
-    # Função para formatar a saída de cada tarefa
-    # def __str__(self):
-        # return "\n".join([str(t) for t in self.tarefas])
  
