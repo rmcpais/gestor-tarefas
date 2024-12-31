@@ -1,5 +1,6 @@
 import datetime
 
+# Classe Tarefa com respetivos atributos
 class Tarefa:
     def __init__(self, titulo, descricao, categoria, status="Pendente", data = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")):
         self.titulo = titulo

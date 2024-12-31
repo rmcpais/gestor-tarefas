@@ -1,7 +1,5 @@
 import sys
-from PyQt5.QtWidgets import (
-    QApplication, QWidget, QFormLayout, QLineEdit, QPushButton, QLabel, QMessageBox
-)
+from PyQt5.QtWidgets import (QApplication, QWidget, QFormLayout, QLineEdit, QPushButton, QLabel, QMessageBox)
 from sistema_gestao_tarefas import SistemaGestaoTarefas
 from task_window import TaskWindow
 
