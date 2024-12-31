@@ -65,25 +65,5 @@ class SistemaGestaoTarefas():
             # Adicionar o utilizador outra vez com as alterações
             self.add_user(uname, newpasswd)
             return True
-            # Função para alterar a password
-    def change_passwd(self, oldpasswd, newpasswd, uname):
-        n = 0
-        i = self.check_user(uname)
-        if self.auth(uname, oldpasswd): # Verificar se é para alterar
-            # Guardar o ficheiro antigo numa lista
-            with open(Path("users/users.txt"), "r") as file:
-                lines = file.readlines()
-            with open(Path("users/users.txt"), "w") as file:
-                for line in lines:
-                    if n == i:
-                        # Não escrever a linha que tem o utilizador que vai ser alterado
-                        continue
-                    file.write(line)
-                    n = n + 1
-            # Retirar o utilizador alterado da lista
-            self.__lista_users.pop(i)
-            # Adicionar o utilizador outra vez com as alterações
-            self.add_user(uname, newpasswd)
-            return True
         else:
             return False
