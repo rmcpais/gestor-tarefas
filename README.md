@@ -1,5 +1,2 @@
 # gestor-tarefas
-
-# epico
-
-aaa
+Projeto final para a UC de Fundamentos de Programação da faculdade Iscte-IUL.
